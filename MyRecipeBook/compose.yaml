@@ -1,0 +1,7 @@
+﻿services:
+  myrecipebook.webapi:
+    image: myrecipebook.webapi
+    build:
+      context: .
+      dockerfile: MyRecipeBook.WebApi/Dockerfile
+
