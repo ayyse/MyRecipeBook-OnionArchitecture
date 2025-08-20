@@ -1,0 +1,16 @@
+C:\Users\aayse\Documents\MyRecipeBook-OnionArchitecture\MyRecipeBook\MyRecipeBook.Application\bin\Debug\net8.0\MyRecipeBook.Application.deps.json
+C:\Users\aayse\Documents\MyRecipeBook-OnionArchitecture\MyRecipeBook\MyRecipeBook.Application\bin\Debug\net8.0\MyRecipeBook.Application.dll
+C:\Users\aayse\Documents\MyRecipeBook-OnionArchitecture\MyRecipeBook\MyRecipeBook.Application\bin\Debug\net8.0\MyRecipeBook.Application.pdb
+C:\Users\aayse\Documents\MyRecipeBook-OnionArchitecture\MyRecipeBook\MyRecipeBook.Application\bin\Debug\net8.0\MyRecipeBook.Domain.dll
+C:\Users\aayse\Documents\MyRecipeBook-OnionArchitecture\MyRecipeBook\MyRecipeBook.Application\bin\Debug\net8.0\MyRecipeBook.Domain.pdb
+C:\Users\aayse\Documents\MyRecipeBook-OnionArchitecture\MyRecipeBook\MyRecipeBook.Application\obj\Debug\net8.0\MyRecipeBook.Application.csproj.AssemblyReference.cache
+C:\Users\aayse\Documents\MyRecipeBook-OnionArchitecture\MyRecipeBook\MyRecipeBook.Application\obj\Debug\net8.0\MyRecipeBook.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\aayse\Documents\MyRecipeBook-OnionArchitecture\MyRecipeBook\MyRecipeBook.Application\obj\Debug\net8.0\MyRecipeBook.Application.AssemblyInfoInputs.cache
+C:\Users\aayse\Documents\MyRecipeBook-OnionArchitecture\MyRecipeBook\MyRecipeBook.Application\obj\Debug\net8.0\MyRecipeBook.Application.AssemblyInfo.cs
+C:\Users\aayse\Documents\MyRecipeBook-OnionArchitecture\MyRecipeBook\MyRecipeBook.Application\obj\Debug\net8.0\MyRecipeBook.Application.csproj.CoreCompileInputs.cache
+C:\Users\aayse\Documents\MyRecipeBook-OnionArchitecture\MyRecipeBook\MyRecipeBook.Application\obj\Debug\net8.0\MyRecipeBook.Application.sourcelink.json
+C:\Users\aayse\Documents\MyRecipeBook-OnionArchitecture\MyRecipeBook\MyRecipeBook.Application\obj\Debug\net8.0\MyRecipe.2A792BE4.Up2Date
+C:\Users\aayse\Documents\MyRecipeBook-OnionArchitecture\MyRecipeBook\MyRecipeBook.Application\obj\Debug\net8.0\MyRecipeBook.Application.dll
+C:\Users\aayse\Documents\MyRecipeBook-OnionArchitecture\MyRecipeBook\MyRecipeBook.Application\obj\Debug\net8.0\refint\MyRecipeBook.Application.dll
+C:\Users\aayse\Documents\MyRecipeBook-OnionArchitecture\MyRecipeBook\MyRecipeBook.Application\obj\Debug\net8.0\MyRecipeBook.Application.pdb
+C:\Users\aayse\Documents\MyRecipeBook-OnionArchitecture\MyRecipeBook\MyRecipeBook.Application\obj\Debug\net8.0\ref\MyRecipeBook.Application.dll
