@@ -23,9 +23,5 @@ public class BaseEntityConfiguration<T> : IEntityTypeConfiguration<T> where T : 
         // DeletionDate
         builder.Property(x => x.DeletionDate)
             .IsRequired(false);
-        
-        // IsDeleted
-        builder.Property(x => x.IsDeleted)
-            .HasDefaultValue(false);
     }
 }

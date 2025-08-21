@@ -1,6 +1,6 @@
-﻿namespace MyRecipeBook.Domain.Entities;
+﻿namespace MyRecipeBook.Application.Common;
 
-public class BaseEntity
+public class BaseDto
 {
     public Guid Id { get; set; }
     public DateTime CreationDate { get; set; }
