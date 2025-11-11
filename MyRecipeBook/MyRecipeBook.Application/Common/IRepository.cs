@@ -4,9 +4,10 @@ namespace MyRecipeBook.Application.Common;
 
 public interface IRepository<TEntity> where TEntity : BaseEntity
 {
-    Task<TEntity?> GetById(Guid id);
-    Task<List<TEntity>> GetAll();
-    Task Create(TEntity entity);
-    void Update(TEntity entity);
-    Task Delete(Guid id);
+    Task<TEntity?> GetByIdAsync(Guid id);
+    Task<List<TEntity>> GetAllAsync();
+    Task AddAsync(TEntity entity);
+    Task UpdateAsync(TEntity entity);
+    Task RemoveAsync(TEntity entity);
+    Task SaveChangesAsync();
 }

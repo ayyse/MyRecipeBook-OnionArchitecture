@@ -1,4 +1,4 @@
-﻿using MyRecipeBook.Application.Repositories;
+﻿using MyRecipeBook.Application.Interfaces.Repositories;
 using MyRecipeBook.Domain.Entities;
 using MyRecipeBook.Infrastructure.DbContexts;
 

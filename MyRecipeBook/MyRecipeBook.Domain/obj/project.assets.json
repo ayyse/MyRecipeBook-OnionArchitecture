@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\aayse\\Documents\\MyRecipeBook-OnionArchitecture\\MyRecipeBook\\MyRecipeBook.Domain\\MyRecipeBook.Domain.csproj",
+      "projectUniqueName": "C:\\Users\\aayse\\Desktop\\deneme\\MyRecipeBook-OnionArchitecture\\MyRecipeBook\\MyRecipeBook.Domain\\MyRecipeBook.Domain.csproj",
       "projectName": "MyRecipeBook.Domain",
-      "projectPath": "C:\\Users\\aayse\\Documents\\MyRecipeBook-OnionArchitecture\\MyRecipeBook\\MyRecipeBook.Domain\\MyRecipeBook.Domain.csproj",
+      "projectPath": "C:\\Users\\aayse\\Desktop\\deneme\\MyRecipeBook-OnionArchitecture\\MyRecipeBook\\MyRecipeBook.Domain\\MyRecipeBook.Domain.csproj",
       "packagesPath": "C:\\Users\\aayse\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\aayse\\Documents\\MyRecipeBook-OnionArchitecture\\MyRecipeBook\\MyRecipeBook.Domain\\obj\\",
+      "outputPath": "C:\\Users\\aayse\\Desktop\\deneme\\MyRecipeBook-OnionArchitecture\\MyRecipeBook\\MyRecipeBook.Domain\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

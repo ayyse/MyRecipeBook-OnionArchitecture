@@ -10,3 +10,15 @@ C:\Users\aayse\Documents\MyRecipeBook-OnionArchitecture\MyRecipeBook\MyRecipeBoo
 C:\Users\aayse\Documents\MyRecipeBook-OnionArchitecture\MyRecipeBook\MyRecipeBook.Domain\obj\Debug\net8.0\refint\MyRecipeBook.Domain.dll
 C:\Users\aayse\Documents\MyRecipeBook-OnionArchitecture\MyRecipeBook\MyRecipeBook.Domain\obj\Debug\net8.0\MyRecipeBook.Domain.pdb
 C:\Users\aayse\Documents\MyRecipeBook-OnionArchitecture\MyRecipeBook\MyRecipeBook.Domain\obj\Debug\net8.0\ref\MyRecipeBook.Domain.dll
+C:\Users\aayse\Desktop\deneme\MyRecipeBook-OnionArchitecture\MyRecipeBook\MyRecipeBook.Domain\bin\Debug\net8.0\MyRecipeBook.Domain.deps.json
+C:\Users\aayse\Desktop\deneme\MyRecipeBook-OnionArchitecture\MyRecipeBook\MyRecipeBook.Domain\bin\Debug\net8.0\MyRecipeBook.Domain.dll
+C:\Users\aayse\Desktop\deneme\MyRecipeBook-OnionArchitecture\MyRecipeBook\MyRecipeBook.Domain\bin\Debug\net8.0\MyRecipeBook.Domain.pdb
+C:\Users\aayse\Desktop\deneme\MyRecipeBook-OnionArchitecture\MyRecipeBook\MyRecipeBook.Domain\obj\Debug\net8.0\MyRecipeBook.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\aayse\Desktop\deneme\MyRecipeBook-OnionArchitecture\MyRecipeBook\MyRecipeBook.Domain\obj\Debug\net8.0\MyRecipeBook.Domain.AssemblyInfoInputs.cache
+C:\Users\aayse\Desktop\deneme\MyRecipeBook-OnionArchitecture\MyRecipeBook\MyRecipeBook.Domain\obj\Debug\net8.0\MyRecipeBook.Domain.AssemblyInfo.cs
+C:\Users\aayse\Desktop\deneme\MyRecipeBook-OnionArchitecture\MyRecipeBook\MyRecipeBook.Domain\obj\Debug\net8.0\MyRecipeBook.Domain.csproj.CoreCompileInputs.cache
+C:\Users\aayse\Desktop\deneme\MyRecipeBook-OnionArchitecture\MyRecipeBook\MyRecipeBook.Domain\obj\Debug\net8.0\MyRecipeBook.Domain.sourcelink.json
+C:\Users\aayse\Desktop\deneme\MyRecipeBook-OnionArchitecture\MyRecipeBook\MyRecipeBook.Domain\obj\Debug\net8.0\MyRecipeBook.Domain.dll
+C:\Users\aayse\Desktop\deneme\MyRecipeBook-OnionArchitecture\MyRecipeBook\MyRecipeBook.Domain\obj\Debug\net8.0\refint\MyRecipeBook.Domain.dll
+C:\Users\aayse\Desktop\deneme\MyRecipeBook-OnionArchitecture\MyRecipeBook\MyRecipeBook.Domain\obj\Debug\net8.0\MyRecipeBook.Domain.pdb
+C:\Users\aayse\Desktop\deneme\MyRecipeBook-OnionArchitecture\MyRecipeBook\MyRecipeBook.Domain\obj\Debug\net8.0\ref\MyRecipeBook.Domain.dll
