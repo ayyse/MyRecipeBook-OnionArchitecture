@@ -1,7 +1,6 @@
 ﻿using MyRecipeBook.Domain.Entities;
 
-namespace MyRecipeBook.Application.Common;
-
+namespace MyRecipeBook.Domain.Repositories;
 public interface IRepository<TEntity> where TEntity : BaseEntity
 {
     Task<TEntity?> GetByIdAsync(Guid id);

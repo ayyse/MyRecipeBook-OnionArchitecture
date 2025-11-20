@@ -1,5 +1,5 @@
-﻿using MyRecipeBook.Application.Interfaces.Repositories;
-using MyRecipeBook.Domain.Entities;
+﻿using MyRecipeBook.Domain.Entities;
+using MyRecipeBook.Domain.Repositories;
 using MyRecipeBook.Infrastructure.DbContexts;
 
 namespace MyRecipeBook.Infrastructure.Repositories;

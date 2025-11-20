@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MyRecipeBook.Application.Common;
 using MyRecipeBook.Domain.Entities;
+using MyRecipeBook.Domain.Repositories;
 using MyRecipeBook.Infrastructure.DbContexts;
 
 namespace MyRecipeBook.Infrastructure.Repositories;
@@ -8,7 +8,7 @@ namespace MyRecipeBook.Infrastructure.Repositories;
 public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEntity
 {
     private readonly MyRecipeBookDbContext _myRecipeBookDbContext;
-    private readonly DbSet<TEntity> _dbSet;
+    protected readonly DbSet<TEntity> _dbSet;
 
     public Repository(MyRecipeBookDbContext myRecipeBookDbContext)
     {

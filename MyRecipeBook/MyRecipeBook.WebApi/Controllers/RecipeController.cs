@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MyRecipeBook.Application.Dtos.Recipe;
 using MyRecipeBook.Application.Interfaces.AppServices;
 
@@ -16,6 +17,7 @@ public class RecipeController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize]
     public async Task<IActionResult> GetAllAsync()
     {
         var recipes = await _recipeAppService.GetAllAsync();

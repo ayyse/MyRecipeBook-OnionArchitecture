@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using MyRecipeBook.Application.Dtos.Recipe;
 using MyRecipeBook.Application.Interfaces.AppServices;
-using MyRecipeBook.Application.Interfaces.Repositories;
 using MyRecipeBook.Domain.Entities;
+using MyRecipeBook.Domain.Repositories;
 
 namespace MyRecipeBook.Application.AppServices;
 
