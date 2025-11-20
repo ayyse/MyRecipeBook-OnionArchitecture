@@ -1,4 +1,4 @@
-# MyRecipeBook – Onion Architecture Örneği
+# My Recipe Book – Onion Architecture Örneği
 
 ## Genel Bakış
 MyRecipeBook, Onion Architecture (Soğan Mimarisi) deseninin tarif yönetimi alanında uygulandığı, öğrenme odaklı bir backend projesidir. RESTful API üzerinden tarif CRUD işlemleri için minimal endpoint'ler sunar ve bunları Swagger ile dokümante eder. Çözüm container-friendly'dir ve Docker'da çalışan bir PostgreSQL veritabanı ile eşleştirilebilir.
@@ -67,17 +67,6 @@ MyRecipeBook
    ```
 5. Swagger UI'a `https://localhost:5001/swagger` adresinden (development varsayılanı) veya konsolda belirtilen URL'den erişin.
 
-## Veritabanı & Migration'lar
-- İlk migration'lar `MyRecipeBook.Infrastructure/Migrations` altında bulunur ve `Recipes` tablosu için şemayı yakalar.
-- Şemayı geliştirmek için `MyRecipeBook.WebApi` projesinden `dotnet ef migrations add <Name>` komutunu kullanın. Onion prensipleriyle tutarlılık için migration'ları Infrastructure projesi içinde tutun.
-
-## API Yüzeyi
-Mevcut endpoint'ler (hepsi `/api/recipes` altında):
-- `GET /api/recipes` – Tarifleri listeler.
-- `GET /api/recipes/{id}` – ID'ye göre tek bir tarif getirir.
-- `POST /api/recipes` – Yeni bir tarif oluşturur.
-- `PUT /api/recipes/{id}` – Mevcut bir tarifi günceller.
-- `DELETE /api/recipes/{id}` – Bir tarifi siler.
 
 Swagger UI, DTO'lardan türetilen request/response şemalarını gösterir. `POST /api/recipes` için örnek payload:
 
