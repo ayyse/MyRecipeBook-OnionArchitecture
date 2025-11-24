@@ -1,96 +1,56 @@
-# My Recipe Book – Onion Architecture Örneği
+## Proje Açıklaması
 
-## Genel Bakış
-MyRecipeBook, Onion Architecture (Soğan Mimarisi) deseninin tarif yönetimi alanında uygulandığı, öğrenme odaklı bir backend projesidir. RESTful API üzerinden tarif CRUD işlemleri için minimal endpoint'ler sunar ve bunları Swagger ile dokümante eder. Çözüm container-friendly'dir ve Docker'da çalışan bir PostgreSQL veritabanı ile eşleştirilebilir.
+Bu proje, **.NET 8** kullanarak baştan sona kendim geliştirmeyi hedeflediğim bir **Yemek Tarifi Uygulaması**. Amacım sadece bir uygulama ortaya çıkarmak değil; aynı zamanda **Onion Architecture, katmanlı mimari, EF Core, PostgreSQL, Docker** gibi konuları gerçekten derinlemesine öğrenmek. Daha önce **abp.io** gibi güçlü altyapılarla çalıştığım için birçok şey hazır geliyordu, bu projede ise her adımı kendim tasarlayıp uygulamayı özellikle tercih ettim.
 
-Bu repository, domain-driven katmanlama, repository soyutlamaları ve infrastructure izolasyonunu içselleştirmek için pratik yapılan bir alan görevi görürken, kapsamı kasıtlı olarak tek bir aggregate (`Recipe`) üzerinde odaklanmıştır.
+Veritabanı olarak **PostgreSQL** kullandım ve tamamen **Docker** üzerinden ayağa kalkacak şekilde yapılandırdım. Böylece projeyi klonlayan biri, bilgisayarına ekstra bir şey kurmaya gerek kalmadan Docker ile veritabanını hazır hale getirebiliyor. Uygulamanın veri erişim kısmında **EF Core** tercih ettim; hem migration yönetimi hem de repository yapısını daha iyi oturtmak için güzel bir pratik oldu.
 
-## Çözüm Yapısı
+Mimari tarafta **Onion Architecture** yapısını kullandım. **Domain, Application, Infrastructure ve API** katmanları arasında bağımlılıkların nasıl doğru kurulacağını öğrenmek ve sürdürülebilir bir yapı oluşturmak benim için önemliydi. Bu yapı sayesinde proje hem genişlemeye açık hem de okunabilir bir formda ilerliyor.
 
-```
-MyRecipeBook
-├── MyRecipeBook.Domain           # Saf domain entity'leri ve kontratlar
-├── MyRecipeBook.Application      # DTO'lar, servis katmanı, AutoMapper profilleri
-├── MyRecipeBook.Infrastructure   # EF Core DbContext, konfigürasyonlar, repository'ler
-├── MyRecipeBook.WebApi           # ASP.NET Core giriş noktası (controller'lar, Program)
-└── compose.yaml                  # Web API container'ı için Docker Compose tanımı
-```
+Bu dokümanda, projeyi indirip kendi ortamında çalıştırmak isteyen herkes için kurulum adımlarını, mimariyi ve kullanılan teknolojilerin neden tercih edildiğini mümkün olduğunca anlaşılır bir şekilde anlatmaya çalıştım. Umuyorum ki hem proje geliştiriciler hem de bu mimariyi öğrenmek isteyenler için faydalı bir kaynak olur.
 
-### Onion Architecture Katmanları
-- **Domain** – `Recipe` aggregate'ını ve temel entity soyutlamalarını içerir. Harici bağımlılık yoktur.
-- **Application** – Veri transfer nesneleri (DTO), servis arayüzleri/implementasyonları (`RecipeAppService`) ve AutoMapper profillerini barındırır. Sadece Domain katmanına bağımlıdır.
-- **Infrastructure** – Entity Framework Core (PostgreSQL provider) kullanarak persistence'ı, somut repository'leri ve DbContext'i implemente eder. Hem Domain hem de Application soyutlamalarına bağımlıdır.
-- **Presentation (WebApi)** – HTTP endpoint'lerini açığa çıkaran, dependency injection'ı yapılandıran ve test için Swagger UI'ı etkinleştiren ASP.NET Core minimal API katmanıdır.
+## Onion Architecture Nedir ve Bu Projede Neden Kullandım?
 
-## Kullanılan Teknolojiler
-- .NET 8 / ASP.NET Core Web API
-- Fluent API konfigürasyonları ile Entity Framework Core
-- DTO ↔ entity mapping için AutoMapper
-- Containerized çalıştırma için Docker & Docker Compose
-- API keşfi için Swagger / Swashbuckle
-- Birincil veri deposu olarak PostgreSQL (container üzerinden)
+Bu projede özellikle Onion Architecture kullanmayı tercih ettim çünkü hem temiz bir kod yapısı sağlıyor hem de uzun vadede projeyi büyütmeyi kolaylaştırıyor.
+**Onion Architecture’ın temel fikri şu:**
+İş kurallarının yer aldığı merkez (Domain) hiçbir şeye bağımlı olmaz; diğer tüm katmanlar merkeze doğru bağımlıdır ama merkez dışarıya bağımlı olmaz.
 
-## Başlangıç
+<details> 
+   <summary><strong>1️⃣ En iç katman: Domain</strong></summary>
+   İş kurallarının ve temel iş mantığının tanımlandığı katmandır.
+   <ul>
+     <li>Entity</li>
+     <li>Value Object</li>
+     <li>Domain servisleri (Karmaşık iş kuralları için. Ör: Puan hesaplama)</li>
+     <li>Repository arayüzleri</li>
+   </ul>
+</details>
 
-### Gereksinimler
-- .NET SDK 8.0+
-- Docker Desktop (veya uyumlu Docker engine)
-- İsteğe bağlı: Migration'ları yerel olarak çalıştırmak için `dotnet-ef` global tool
+<details> 
+   <summary><strong>2️⃣ Application Katmanı</strong></summary>
+   Kullanıcı senaryolarını ve uygulama iş akışını yönetir.
+   <ul>
+     <li>AppService (CRUD işlemler)</li>
+     <li>DTO</li>
+     <li>Automapper: Domain nesneleri ve DTO'lar arasında dönüşüm sağlar.</li>
+     <li>İzinler ve yetkinlendirme</li>
+   </ul>
+</details>
 
-### Docker Compose ile Çalıştırma
-1. Docker Desktop'ın çalıştığından emin olun.
-2. Repository root'undan (`MyRecipeBook-OnionArchitecture`), API container'ını build edip başlatın:
-   ```powershell
-   cd MyRecipeBook
-   docker compose up --build
-   ```
-3. Web API container içinde `8080` portunda dinler. Host portuna map etmek isterseniz `compose.yaml` dosyasını güncelleyin (örneğin `ports: [ "8080:8080" ]` ekleyin).
-4. API container'ına bir PostgreSQL instance'ına erişim sağlayın. Seçenekler:
-   - Yerel bir Postgres Docker container'ı başlatın:
-     ```powershell
-     docker run --name recipe-db -e POSTGRES_PASSWORD=postgres -e POSTGRES_USER=postgres -e POSTGRES_DB=RecipeBookDb -p 5432:5432 -d postgres:15
-     ```
-   - Veya `compose.yaml` dosyasına bir `postgres` servisi ve kalıcılık için volume ekleyin.
-5. Her iki container da çalıştıktan sonra, tarif endpoint'lerini keşfetmek ve test etmek için `http://localhost:8080/swagger` adresine gidin (map ettiğiniz porta göre ayarlayın).
+<details> 
+   <summary><strong>3️⃣ Infrastructure Katmanı</strong></summary>
+   Dış servislerle ve veritabanı ile iletişimi sağlar.
+   <ul>
+     <li>Db bağlantısı ve migrationlar (DbContext sınıfında bağlantı)</li>
+     <li>Repository implementasyonları</li>
+     <li>Entity Framework Core</li>
+   </ul>
+</details>
 
-### Yerel Olarak Çalıştırma (container olmadan)
-1. PostgreSQL'i yerel olarak veya yukarıdaki gibi Docker üzerinden başlatın.
-2. Gerekirse `MyRecipeBook.WebApi/appsettings.Development.json` dosyasındaki connection string'i güncelleyin.
-3. Migration'ları uygulayın:
-   ```powershell
-   cd MyRecipeBook/MyRecipeBook.WebApi
-   dotnet ef database update
-   ```
-4. Web API'yi çalıştırın:
-   ```powershell
-   dotnet run --project MyRecipeBook.WebApi
-   ```
-5. Swagger UI'a `https://localhost:5001/swagger` adresinden (development varsayılanı) veya konsolda belirtilen URL'den erişin.
-
-
-Swagger UI, DTO'lardan türetilen request/response şemalarını gösterir. `POST /api/recipes` için örnek payload:
-
-```json
-{
-  "name": "Klasik Pancake",
-  "description": "Akçaağaç şurubu ile yumuşak pancake",
-  "ingredients": ["Un", "Yumurta", "Süt"],
-  "instructions": "Malzemeleri karıştırın ve orta ateşte pişirin"
-}
-```
-
-## Geliştirme Notları
-- Dependency injection, `Program.cs` içinde yapılandırılmıştır; `IRecipeAppService` ve `IRecipeRepository` gibi arayüzler somut implementasyonlarına bağlanır.
-- AutoMapper profilleri, controller'ları ince tutmak için mapping tanımlarını merkezileştirir.
-- Unit test'ler henüz dahil edilmemiştir; her katman için özel test projeleri eklemeyi düşünün (örneğin Application servisleri).
-- Dockerfile varsayılan olarak Linux container'larını hedefler; Windows container'ları gerekiyorsa base image'leri ayarlayın.
-
-## Yol Haritası Fikirleri
-- Tarif yönetimi için authentication/authorization eklemek.
-- Domain'i genişletmek (kategoriler, malzemeler, kullanıcı favorileri).
-- Validasyon, sayfalama ve arama yetenekleri eklemek.
-- Otomatik test'ler (unit/integration) ve CI pipeline sağlamak.
-- Docker Compose'u seed'lenmiş PostgreSQL servisi ve volume yönetimi ile geliştirmek.
-
-## Lisans
-MIT Lisansı şartları altında dağıtılmaktadır. Detaylar için `LICENSE` dosyasına bakın.
+<details> 
+   <summary><strong>4️⃣ API Katmanı</strong></summary>
+   Kullanıcı ile etkileşimi sağlar.
+   <ul>
+     <li>Sunum katmanı</li>
+     <li>Controller</li>
+   </ul>
+</details>
