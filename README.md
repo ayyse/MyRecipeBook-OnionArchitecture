@@ -54,3 +54,54 @@ Bu projede özellikle Onion Architecture kullanmayı tercih ettim çünkü hem t
      <li>Controller</li>
    </ul>
 </details>
+
+## JWT Authentication (Token Bazlı Yetkilendirme)
+Projede kullanıcı doğrulama ve yetkilendirme işlemleri için JWT (JSON Web Token) kullandım.
+Amacım, kullanıcı giriş yaptıktan sonra uygulama içinde güvenli bir şekilde yetkilerini kontrol edebilmek ve her isteğin doğruluğunu garanti altına almak.
+
+### JWT => Header . Payload . Signature
+<ul>
+   <li><strong>Header: </strong>JWT'nin tipini ve encoding formatını tanımlar.</li>
+   <li><strong>Payload: </strong>Yetkilendirme bilgilerini içeren verilerdir ve genellikle JSON formatında tutulur.</li>
+   <li><strong>Signature: </strong>Signature, header ve payload verilerinin hash değerini içerir ve JWT'nin doğruluğunu kontrol etmek için kullanılır.</li>
+</ul>
+
+### Temel Akış
+ <ol>
+   <li>Kullanıcı register veya login olur.</li>
+   <li>Sistem kullanıcı bilgilerini doğrular.</li>
+   <li>Eğer bilgiler doğruysa, kullanıcıya JWT token üretilir ve geri gönderilir.</li>
+   <li>Kullanıcı bu token’ı sonraki isteklerinde HTTP Header üzerinden gönderir.</li>
+   <li>API, gelen token’ı doğrular ve kullanıcının yetkilerini kontrol eder.</li>
+ </ol>
+ Bu sayede:
+ <ul>
+   <li>Her istek için kullanıcı kimliği doğrulanmış olur</li>
+   <li>Rollere veya yetkilere göre erişim kontrolü sağlanabilir</li>
+   <li>Token süresi dolduğunda yeniden login gereklidir, böylece güvenlik artırılır</li>
+ </ul>
+
+### Kullanılan Teknolojiler ve Yapı
+<ul>
+   <li><strong>Microsoft.AspNetCore.Authentication.JwtBearer</strong> ile JWT doğrulaması</li>
+   <li><strong>JwtSettings</strong> sınıfı ile token ayarlarını yapılandırma (Key, Issuer, Audience, ExpireMinutes)</li>
+   <li><strong>Bcrypt</strong> ile şifreleri güvenli şekilde hashleme ve doğrulama</li>
+   <li><strong>Hashing:</strong> Kullanıcı şifreleri veritabanına hash’lenmiş şekilde kaydedilir, bu sayede güvenlik sağlanır.</li>
+   <li><strong>Verify:</strong> Login sırasında girilen şifre hash ile karşılaştırılır.</li>
+ </ul>
+
+ ### API Katmanında Kullanımı
+ <ul>
+  <li>[Authorize] attribute’u ile controller veya action bazında yetkilendirme uygulanabilir.</li>
+  <li>Token geçerli değilse, kullanıcıya 401 Unauthorized döner.</li>
+  <li>Token geçerli ve yetkili ise, istek ilgili servisler üzerinden işlenir.</li>
+</ul>
+
+ ### Faydaları
+ <ul>
+  <li>Stateless authentication (sunucu tarafında oturum tutmaya gerek yok)</li>
+  <li>Kolay rol yönetimi ve yetkilendirme</li>
+  <li>Verilerin kolayca okunabilri ve kodlanabilir olması</li>
+  <li>Uygulamalar arasında güvenli veri akışı sağlaması</li>
+</ul>
+
