@@ -1,0 +1,15 @@
+<div class="auth-container">
+  <div class="auth-card">
+    <h2>Giriş Yap</h2>
+
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+      <input type="email" formControlName="email" placeholder="E-posta" required />
+      <input type="password" formControlName="password" placeholder="Şifre" required/>
+      <button type="submit">Giriş Yap</button>
+    </form>
+
+    <p class="switch">
+      Henüz hesabın yok mu? <a routerLink="/register">Kayıt Ol</a>
+    </p>
+  </div>
+</div>

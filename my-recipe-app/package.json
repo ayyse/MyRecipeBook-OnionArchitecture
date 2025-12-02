@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "nswag:gen": "nswag openapi2tsclient /input:\"http://localhost:5202/swagger/v1/swagger.json\" /output:\"src/app/api/api.ts\" /template:Angular /generateClientClasses:true /generateClientInterfaces:true /typeStyle:Interface /httpClass:HttpClient /injectionTokenType:InjectionToken /useSingletonProvider:true"
   },
   "prettier": {
     "printWidth": 100,
