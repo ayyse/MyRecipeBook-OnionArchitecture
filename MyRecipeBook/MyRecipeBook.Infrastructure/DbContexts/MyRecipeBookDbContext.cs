@@ -14,6 +14,7 @@ public class MyRecipeBookDbContext : DbContext
     // Entities
     public DbSet<Recipe> Recipes => Set<Recipe>(); // null reference problemi olmaz. Her zaman Set<Recipe>() metodunu çağırarak çalışır, EF tarafından runtime’da set edilmeye gerek yok.
     public DbSet<User> Users => Set<User>(); 
+    public DbSet<Category> Categories => Set<Category>();
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -22,5 +23,6 @@ public class MyRecipeBookDbContext : DbContext
         // Configurations
         modelBuilder.ApplyConfiguration(new RecipeConfiguration());
         modelBuilder.ApplyConfiguration(new UserConfiguration());
+        modelBuilder.ApplyConfiguration(new CategoryConfiguration());
     }
 }

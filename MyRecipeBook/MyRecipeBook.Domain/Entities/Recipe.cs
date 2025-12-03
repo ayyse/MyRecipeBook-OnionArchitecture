@@ -6,5 +6,8 @@ public class Recipe : BaseEntity
     public string? Description { get; set; }
     public int PreparationTime { get; set; }  // minutes
     public int CookingTime { get; set; } // minutes
-    public int NumberOfServings { get; set; } 
+    public int NumberOfServings { get; set; }
+    
+    public Guid CategoryId { get; set; }
+    public Category Category { get; set; }
 }
