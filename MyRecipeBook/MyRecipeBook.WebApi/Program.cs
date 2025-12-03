@@ -25,6 +25,7 @@ builder.Services.AddDbContext<MyRecipeBookDbContext>(options =>
 // Repositories (DbContext ile aynı ömür)
 builder.Services.AddScoped<IRecipeRepository, RecipeRepository>();
 builder.Services.AddScoped<IAuthRepository, AuthRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 
 // appsettings.json içindeki konfigurasyonlar otomatik olarak sınıfa bind edilir
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
@@ -33,6 +34,7 @@ var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<JwtSetting
 // AppServices (her HTTP request için yeni, Repository ile aynı yaşam süresi)
 builder.Services.AddScoped<IRecipeAppService, RecipeAppService>();
 builder.Services.AddScoped<IAuthAppService, AuthAppService>();
+builder.Services.AddScoped<ICategoryAppService, CategoryAppService>();
 
 // Helpers
 builder.Services.AddScoped<ITokenHelper, JwtTokenHelper>();
