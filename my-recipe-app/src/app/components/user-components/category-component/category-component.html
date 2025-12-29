@@ -1,8 +1,21 @@
 <div class="category-bar">
   @for (category of categories; track $index) {
-    <div class="category-item">
-      {{ category.name }}
+    <div class="category-wrapper">
+
+      <div class="category-item">
+        {{ category.name }}
+      </div>
+
+      @if (category.subCategories?.length) {
+        <div class="child-dropdown">
+          @for (child of category.subCategories; track $index) {
+            <div class="child-item">
+              {{ child.name }}
+            </div>
+          }
+        </div>
+      }
+
     </div>
   }
 </div>
-

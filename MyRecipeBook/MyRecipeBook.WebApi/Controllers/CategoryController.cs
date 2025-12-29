@@ -22,6 +22,13 @@ public class CategoryController : ControllerBase
         return Ok(categories);
     }
     
+    [HttpGet("parents")]
+    public async Task<ActionResult<List<CategoryDto>>> GetParentCategoriesAsync()
+    {
+        var categories = await _categoryAppService.GetParentCategoriesAsync();
+        return Ok(categories);
+    }
+    
     [HttpGet("{id}")]
     public async Task<ActionResult<CategoryDto>> GetByIdAsync(Guid id)
     {

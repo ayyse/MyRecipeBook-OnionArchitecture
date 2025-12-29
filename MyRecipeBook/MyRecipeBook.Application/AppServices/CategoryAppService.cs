@@ -21,6 +21,12 @@ public class CategoryAppService : ICategoryAppService
         var categories = await _categoryRepository.GetAllAsync();
         return _mapper.Map<List<CategoryDto>>(categories);
     }
+    
+    public async Task<List<CategoryDto>> GetParentCategoriesAsync()
+    {
+        var categories = await _categoryRepository.GetParentCategoriesAsync();
+        return _mapper.Map<List<CategoryDto>>(categories);
+    }
 
     public async Task<CategoryDto> GetByIdAsync(Guid id)
     {

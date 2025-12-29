@@ -18,12 +18,10 @@ export class CategoryComponent implements OnInit {
   }
   
   getParentCategories(): void {
-    this.client.categoryAll().subscribe({
+    this.client.parents().subscribe({
       next: (response: CategoryDto[]) => {
         // parentCategoryId null olanları al
-        this.categories = response.filter(
-          c => c.parentCategoryId === null
-        );
+        this.categories = response;
 
         console.log('Parent categories:', this.categories);
       },
