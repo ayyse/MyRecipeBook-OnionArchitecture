@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "nswag:gen": "nswag openapi2tsclient /input:\"http://localhost:5202/swagger/v1/swagger.json\" /output:\"src/app/api/api.ts\" /template:Angular /generateClientClasses:true /generateClientInterfaces:true /typeStyle:Interface /httpClass:HttpClient /injectionTokenType:InjectionToken /useSingletonProvider:true"
+    "nswag:gen": "nswag openapi2tsclient /input:\"http://localhost:5202/swagger/v1/swagger.json\" /output:\"src/app/api/api.ts\" /template:Angular /generateClientClasses:true /generateClientInterfaces:true /generateDtoTypes:true /typeStyle:Interface /httpClass:HttpClient /injectionTokenType:InjectionToken /useSingletonProvider:true /wrapResponses:false /markOptionalProperties:true /dateTimeType:string"
   },
   "prettier": {
     "printWidth": 100,

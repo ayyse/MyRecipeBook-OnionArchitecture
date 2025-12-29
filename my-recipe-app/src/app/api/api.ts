@@ -28,7 +28,29 @@ export interface IClient {
     /**
      * @return OK
      */
-    recipeGET(): Observable<void>;
+    categoryAll(): Observable<CategoryDto[]>;
+    /**
+     * @param body (optional) 
+     * @return OK
+     */
+    categoryPOST(body: CreateCategoryDto | undefined): Observable<void>;
+    /**
+     * @return OK
+     */
+    categoryGET(id: string): Observable<CategoryDto>;
+    /**
+     * @param body (optional) 
+     * @return OK
+     */
+    categoryPUT(id: string, body: UpdateCategoryDto | undefined): Observable<void>;
+    /**
+     * @return OK
+     */
+    categoryDELETE(id: string): Observable<void>;
+    /**
+     * @return OK
+     */
+    recipeAll(): Observable<RecipeDto[]>;
     /**
      * @param body (optional) 
      * @return OK
@@ -37,7 +59,7 @@ export interface IClient {
     /**
      * @return OK
      */
-    recipeGET2(id: string): Observable<void>;
+    recipeGET(id: string): Observable<RecipeDto>;
     /**
      * @param body (optional) 
      * @return OK
@@ -169,23 +191,78 @@ export class Client implements IClient {
     /**
      * @return OK
      */
-    recipeGET(): Observable<void> {
-        let url_ = this.baseUrl + "/api/Recipe";
+    categoryAll(): Observable<CategoryDto[]> {
+        let url_ = this.baseUrl + "/api/Category";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
+                "Accept": "application/json"
             })
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processRecipeGET(response_);
+            return this.processCategoryAll(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processRecipeGET(response_ as any);
+                    return this.processCategoryAll(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<CategoryDto[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<CategoryDto[]>;
+        }));
+    }
+
+    protected processCategoryAll(response: HttpResponseBase): Observable<CategoryDto[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as CategoryDto[];
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<CategoryDto[]>();
+    }
+
+    /**
+     * @param body (optional) 
+     * @return OK
+     */
+    categoryPOST(body: CreateCategoryDto | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/Category";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCategoryPOST(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCategoryPOST(response_ as any);
                 } catch (e) {
                     return _observableThrow(e) as any as Observable<void>;
                 }
@@ -194,7 +271,7 @@ export class Client implements IClient {
         }));
     }
 
-    protected processRecipeGET(response: HttpResponseBase): Observable<void> {
+    protected processCategoryPOST(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -211,6 +288,214 @@ export class Client implements IClient {
             }));
         }
         return _observableOf<void>(null as any);
+    }
+
+    /**
+     * @return OK
+     */
+    categoryGET(id: string): Observable<CategoryDto> {
+        let url_ = this.baseUrl + "/api/Category/{id}";
+        if (id === undefined || id === null)
+            throw new globalThis.Error("The parameter 'id' must be defined.");
+        url_ = url_.replace("{id}", encodeURIComponent("" + id));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCategoryGET(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCategoryGET(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<CategoryDto>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<CategoryDto>;
+        }));
+    }
+
+    protected processCategoryGET(response: HttpResponseBase): Observable<CategoryDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as CategoryDto;
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<CategoryDto>(null as any);
+    }
+
+    /**
+     * @param body (optional) 
+     * @return OK
+     */
+    categoryPUT(id: string, body: UpdateCategoryDto | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/Category/{id}";
+        if (id === undefined || id === null)
+            throw new globalThis.Error("The parameter 'id' must be defined.");
+        url_ = url_.replace("{id}", encodeURIComponent("" + id));
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(body);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+            })
+        };
+
+        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCategoryPUT(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCategoryPUT(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processCategoryPUT(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(null as any);
+    }
+
+    /**
+     * @return OK
+     */
+    categoryDELETE(id: string): Observable<void> {
+        let url_ = this.baseUrl + "/api/Category/{id}";
+        if (id === undefined || id === null)
+            throw new globalThis.Error("The parameter 'id' must be defined.");
+        url_ = url_.replace("{id}", encodeURIComponent("" + id));
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCategoryDELETE(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCategoryDELETE(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<void>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<void>;
+        }));
+    }
+
+    protected processCategoryDELETE(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(null as any);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(null as any);
+    }
+
+    /**
+     * @return OK
+     */
+    recipeAll(): Observable<RecipeDto[]> {
+        let url_ = this.baseUrl + "/api/Recipe";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processRecipeAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processRecipeAll(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<RecipeDto[]>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<RecipeDto[]>;
+        }));
+    }
+
+    protected processRecipeAll(response: HttpResponseBase): Observable<RecipeDto[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+            (response as any).error instanceof Blob ? (response as any).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as RecipeDto[];
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<RecipeDto[]>();
     }
 
     /**
@@ -268,7 +553,7 @@ export class Client implements IClient {
     /**
      * @return OK
      */
-    recipeGET2(id: string): Observable<void> {
+    recipeGET(id: string): Observable<RecipeDto> {
         let url_ = this.baseUrl + "/api/Recipe/{id}";
         if (id === undefined || id === null)
             throw new globalThis.Error("The parameter 'id' must be defined.");
@@ -279,24 +564,25 @@ export class Client implements IClient {
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
+                "Accept": "application/json"
             })
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processRecipeGET2(response_);
+            return this.processRecipeGET(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processRecipeGET2(response_ as any);
+                    return this.processRecipeGET(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<void>;
+                    return _observableThrow(e) as any as Observable<RecipeDto>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<void>;
+                return _observableThrow(response_) as any as Observable<RecipeDto>;
         }));
     }
 
-    protected processRecipeGET2(response: HttpResponseBase): Observable<void> {
+    protected processRecipeGET(response: HttpResponseBase): Observable<RecipeDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -305,14 +591,16 @@ export class Client implements IClient {
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return _observableOf<void>(null as any);
+            let result200: any = null;
+            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as RecipeDto;
+            return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<void>(null as any);
+        return _observableOf<RecipeDto>(null as any);
     }
 
     /**
@@ -421,6 +709,22 @@ export class Client implements IClient {
     }
 }
 
+export interface CategoryDto {
+    id?: string;
+    creationDate?: string;
+    modificationDate?: string | undefined;
+    deletionDate?: string | undefined;
+    name?: string | undefined;
+    description?: string | undefined;
+    parentCategoryId?: string | undefined;
+}
+
+export interface CreateCategoryDto {
+    name?: string | undefined;
+    description?: string | undefined;
+    parentCategoryId?: string | undefined;
+}
+
 export interface CreateRecipeDto {
     name: string;
     description?: string | undefined;
@@ -430,21 +734,35 @@ export interface CreateRecipeDto {
 }
 
 export interface LoginDto {
-    id?: string;
-    creationDate?: Date;
-    modificationDate?: Date | undefined;
-    deletionDate?: Date | undefined;
     email?: string | undefined;
     password?: string | undefined;
 }
 
+export interface RecipeDto {
+    id?: string;
+    creationDate?: string;
+    modificationDate?: string | undefined;
+    deletionDate?: string | undefined;
+    name?: string | undefined;
+    description?: string | undefined;
+    preparationTime?: number;
+    cookingTime?: number;
+    numberOfServings?: number;
+}
+
 export interface RegisterDto {
     id?: string;
-    creationDate?: Date;
-    modificationDate?: Date | undefined;
-    deletionDate?: Date | undefined;
+    creationDate?: string;
+    modificationDate?: string | undefined;
+    deletionDate?: string | undefined;
     email?: string | undefined;
     password?: string | undefined;
+}
+
+export interface UpdateCategoryDto {
+    name?: string | undefined;
+    description?: string | undefined;
+    parentCategoryId?: string | undefined;
 }
 
 export interface UpdateRecipeDto {

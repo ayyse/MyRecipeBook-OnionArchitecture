@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using MyRecipeBook.Application.Dtos.Category;
 using MyRecipeBook.Application.Interfaces.AppServices;
 
@@ -17,15 +16,14 @@ public class CategoryController : ControllerBase
     }
     
     [HttpGet]
-    [Authorize]
-    public async Task<IActionResult> GetAllAsync()
+    public async Task<ActionResult<List<CategoryDto>>> GetAllAsync()
     {
         var categories = await _categoryAppService.GetAllAsync();
         return Ok(categories);
     }
     
     [HttpGet("{id}")]
-    public async Task<IActionResult> GetByIdAsync(Guid id)
+    public async Task<ActionResult<CategoryDto>> GetByIdAsync(Guid id)
     {
         var category = await _categoryAppService.GetByIdAsync(id);
         if (category == null)

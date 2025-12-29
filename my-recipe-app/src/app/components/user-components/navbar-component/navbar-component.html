@@ -1,5 +1,5 @@
 <nav class="navbar">
-  <div class="logo" routerLink="/home">My Recipe Book</div>
+  <div class="logo" routerLink="/home">Tarif Defterim</div>
 
   <div class="nav-links" *ngIf="(user$ | async) as user; else guest">
     <span>Hoşgeldin, {{ user.email }}</span>

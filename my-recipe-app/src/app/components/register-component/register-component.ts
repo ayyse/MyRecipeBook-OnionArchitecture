@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Client, RegisterDto } from '../../api/api';
 import { Router } from '@angular/router';
+import { Client, RegisterDto } from '../../api/api';
 import { AuthService } from '../../services/auth-service';
+
 
 @Component({
   selector: 'app-register-component',
