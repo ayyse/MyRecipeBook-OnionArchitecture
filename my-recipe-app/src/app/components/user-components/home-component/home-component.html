@@ -1,4 +1,5 @@
 <div class="home-container">
+  <!-- Kategoriler -->
   <app-category-component></app-category-component>
 
   <!-- HERO / BANNER -->
@@ -13,30 +14,43 @@
   </section>
 
   <!-- POPÜLER TARİFLER -->
-  <section class="recipes">
+
+  <section class="popular-section">
+  <div class="section-header">
     <h2>Popüler Tarifler</h2>
+    <p>En çok sevilen ve denenen tarifler</p>
+  </div>
 
-    <div class="recipe-list">
-
+  <div class="recipe-grid">
+    @for (recipe of popularRecipes; track recipe.id) {
       <div class="recipe-card">
-        <img src="https://source.unsplash.com/400x300/?pasta" alt="Pasta">
-        <h3>Kremalı Makarna</h3>
-        <p>20 dakikada hazır nefis bir makarna tarifi.</p>
-      </div>
+        <div class="image-wrapper">
+          <!-- <img [src]="recipe.imageUrl" [alt]="recipe.name" /> -->
+          <!-- <span class="category-badge">{{ recipe.categoryName }}</span> -->
+        </div>
 
-      <div class="recipe-card">
-        <img src="https://source.unsplash.com/400x300/?soup" alt="Soup">
-        <h3>Mercimek Çorbası</h3>
-        <p>En sevilen geleneksel çorbalardan.</p>
-      </div>
+        <div class="card-content">
+          <h3>{{ recipe.name }}</h3>
+          <p>{{ recipe.description }}</p>
 
-      <div class="recipe-card">
-        <img src="https://source.unsplash.com/400x300/?cake" alt="Cake">
-        <h3>Islak Kek</h3>
-        <p>Çay saatlerinin vazgeçilmezi.</p>
+          <div class="card-footer">
+            <div class="time-box">
+              <div class="time-item">
+                ⏱ Hazırlama Süresi: {{ recipe.preparationTime }} dk
+              </div>
+              <div class="time-item">
+                🔥 Pişirme Süresi: {{ recipe.cookingTime }} dk
+              </div>
+            </div>
+            <div class="rating-box">
+              ⭐ <!--  {{ recipe.rating }} -->
+            </div>
+          </div>
+        
+        </div>
       </div>
-
-    </div>
+    }
+  </div>
   </section>
 
 </div>

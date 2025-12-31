@@ -37,7 +37,7 @@ export interface IClient {
     /**
      * @return OK
      */
-    parents(): Observable<CategoryDto[]>;
+    parentCategories(): Observable<CategoryDto[]>;
     /**
      * @return OK
      */
@@ -297,8 +297,8 @@ export class Client implements IClient {
     /**
      * @return OK
      */
-    parents(): Observable<CategoryDto[]> {
-        let url_ = this.baseUrl + "/api/Category/parents";
+    parentCategories(): Observable<CategoryDto[]> {
+        let url_ = this.baseUrl + "/api/Category/parentCategories";
         url_ = url_.replace(/[?&]$/, "");
 
         let options_ : any = {
@@ -310,11 +310,11 @@ export class Client implements IClient {
         };
 
         return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processParents(response_);
+            return this.processParentCategories(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processParents(response_ as any);
+                    return this.processParentCategories(response_ as any);
                 } catch (e) {
                     return _observableThrow(e) as any as Observable<CategoryDto[]>;
                 }
@@ -323,7 +323,7 @@ export class Client implements IClient {
         }));
     }
 
-    protected processParents(response: HttpResponseBase): Observable<CategoryDto[]> {
+    protected processParentCategories(response: HttpResponseBase): Observable<CategoryDto[]> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :

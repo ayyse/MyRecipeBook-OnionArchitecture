@@ -22,7 +22,7 @@ public class CategoryController : ControllerBase
         return Ok(categories);
     }
     
-    [HttpGet("parents")]
+    [HttpGet("parentCategories")]
     public async Task<ActionResult<List<CategoryDto>>> GetParentCategoriesAsync()
     {
         var categories = await _categoryAppService.GetParentCategoriesAsync();

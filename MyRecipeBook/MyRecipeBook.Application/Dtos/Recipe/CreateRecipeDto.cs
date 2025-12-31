@@ -21,5 +21,7 @@ public class CreateRecipeDto
     
     [Required(ErrorMessage = "Number of servings is required")]
     [Range(1, 20, ErrorMessage = "The number of servings must be between 1 and 20.")]
-    public int NumberOfServings { get; set; } 
+    public int NumberOfServings { get; set; }
+
+    public Guid CategoryId { get; set; }
 }

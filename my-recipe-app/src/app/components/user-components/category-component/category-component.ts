@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CategoryDto, Client } from '../../../api/api';
 
 @Component({
@@ -11,17 +11,17 @@ import { CategoryDto, Client } from '../../../api/api';
 export class CategoryComponent implements OnInit {
   categories: CategoryDto[] = [];
 
-  constructor(private client: Client) {}
+  constructor(private client: Client, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.getParentCategories();
   }
   
   getParentCategories(): void {
-    this.client.parents().subscribe({
+    this.client.parentCategories().subscribe({
       next: (response: CategoryDto[]) => {
-        // parentCategoryId null olanları al
         this.categories = response;
+        this.cdr.detectChanges();
 
         console.log('Parent categories:', this.categories);
       },
