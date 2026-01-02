@@ -1,16 +1,10 @@
-<nav class="admin-navbar">
-  <div class="left">
-    <span class="logo">🛠 Admin Panel</span>
+<nav class="navbar">
+  <div class="logo" routerLink="/">Tarif Defterim</div>
 
-    <a routerLink="/admin" routerLinkActive="active">Dashboard</a>
-    <a routerLink="/admin/users" routerLinkActive="active">Kullanıcılar</a>
-    <a routerLink="/admin/recipes" routerLinkActive="active">Tarifler</a>
-    <a routerLink="/admin/categories" routerLinkActive="active">Kategoriler</a>
-  </div>
-
-  <div class="right">
-    <span class="email">{{ email }}</span>
-    <button (click)="logout()">Çıkış</button>
+  <!-- GİRİŞ YAPILDIYSA -->
+  <div class="nav-links">
+    <span>Hoşgeldin, {{ email }}</span>
+    <a (click)="logout()" class="btn">Çıkış Yap</a>
   </div>
 </nav>
 

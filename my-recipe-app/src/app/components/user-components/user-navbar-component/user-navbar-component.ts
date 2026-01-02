@@ -11,14 +11,13 @@ import { RouterModule } from '@angular/router';
   styleUrl: './user-navbar-component.css',
 })
 export class UserNavbarComponent {
-
   constructor(
     private authService: AuthService,
   ) { }
 
   get email(): string | null {
-  return this.authService.getUserEmail();
-}
+    return this.authService.getUserEmail();
+  }
 
   get isLoggedIn(): boolean {
     return this.authService.isLoggedIn();

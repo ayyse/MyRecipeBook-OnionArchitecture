@@ -11,7 +11,9 @@ import { AuthService } from '../../../services/auth-service';
   styleUrl: './admin-navbar-component.css',
 })
 export class AdminNavbarComponent {
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+  ) { }
 
   get email(): string | null {
     return this.authService.getUserEmail();

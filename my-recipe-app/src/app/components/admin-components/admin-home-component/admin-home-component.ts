@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { AdminSidebarComponent } from '../admin-sidebar-component/admin-sidebar-component';
 
 @Component({
   selector: 'app-admin-home-component',
-  imports: [],
+  imports: [AdminSidebarComponent],
   templateUrl: './admin-home-component.html',
   styleUrl: './admin-home-component.css',
 })

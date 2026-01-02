@@ -39,8 +39,8 @@
 }
 
 .navbar .nav-links a.btn:hover {
-  background-color: #ffe2e6;
-  color: #ff3b61;
+  background-color: #ff3b61;
+  color: white;
 }
 
 .navbar .nav-links a:hover {

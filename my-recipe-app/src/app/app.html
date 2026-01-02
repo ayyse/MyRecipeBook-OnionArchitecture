@@ -338,6 +338,12 @@
 <!-- * * * * * * * * * * End of Placeholder  * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 
-<app-user-navbar-component />
+<app-admin-navbar-component
+  *ngIf="isAdmin()">
+</app-admin-navbar-component>
+
+<app-user-navbar-component
+  *ngIf="!isAdmin()">
+</app-user-navbar-component>
 
 <router-outlet />
