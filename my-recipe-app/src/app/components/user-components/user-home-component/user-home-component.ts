@@ -1,14 +1,15 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
-import { CategoryComponent } from "../category-component/category-component";
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Client, RecipeDto } from '../../../api/api';
+import { UserCategoryComponent } from '../user-category-component/user-category-component';
 
 @Component({
-  selector: 'app-home-component',
-  imports: [CategoryComponent],
-  templateUrl: './home-component.html',
-  styleUrl: './home-component.css',
+  selector: 'app-user-home-component',
+  standalone: true,
+  imports: [UserCategoryComponent],
+  templateUrl: './user-home-component.html',
+  styleUrl: './user-home-component.css',
 })
-export class HomeComponent {
+export class UserHomeComponent implements OnInit {
   popularRecipes: RecipeDto[] = [];
   
     constructor(private client: Client, private cdr: ChangeDetectorRef) {}

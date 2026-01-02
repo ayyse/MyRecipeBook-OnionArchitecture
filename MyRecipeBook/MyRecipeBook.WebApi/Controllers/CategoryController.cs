@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MyRecipeBook.Application.Dtos.Category;
 using MyRecipeBook.Application.Interfaces.AppServices;
 
@@ -40,6 +41,7 @@ public class CategoryController : ControllerBase
     }
     
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> CreateAsync([FromBody] CreateCategoryDto input)
     {
         if (!ModelState.IsValid)
@@ -50,6 +52,7 @@ public class CategoryController : ControllerBase
     }
 
     [HttpPut("{id}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> UpdateAsync(Guid id, [FromBody] UpdateCategoryDto input)
     {
         var updatedCategory = await _categoryAppService.UpdateAsync(id, input);
@@ -57,6 +60,7 @@ public class CategoryController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> DeleteAsync(Guid id)
     {
         await _categoryAppService.DeleteAsync(id);

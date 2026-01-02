@@ -6,39 +6,57 @@ import { AuthService } from '../../services/auth-service';
 
 @Component({
   selector: 'app-login-component',
+  standalone: true,
   imports: [ReactiveFormsModule],
   templateUrl: './login-component.html',
   styleUrl: './login-component.css',
-  standalone: true
 })
 export class LoginComponent {
+
   loginForm = new FormGroup({
     email: new FormControl('', { nonNullable: true }),
     password: new FormControl('', { nonNullable: true }),
   });
 
-  constructor(private router: Router, private client: Client, private authService: AuthService) {}
+  constructor(
+    private router: Router,
+    private client: Client,
+    private authService: AuthService
+  ) { }
 
   login() {
+    localStorage.removeItem('token');
+    
     if (this.loginForm.invalid) {
-          console.log('Form invalid');
+      return;
+    }
+
+    const loginDto: LoginDto = {
+      email: this.loginForm.controls.email.value,
+      password: this.loginForm.controls.password.value,
+    };
+
+    this.client.login(loginDto).subscribe({
+      next: (response) => {
+
+        console.log("responseee", response)
+
+        if (!response.token) {
+          console.error('Token response içinde yok');
           return;
         }
-    
-        const loginDto: LoginDto = {
-          email: this.loginForm.value.email,
-          password: this.loginForm.value.password,
-        };
-        
-        this.client.login(loginDto).subscribe({
-          next: () => {
-            console.log('Kayıt başarılı!');
-            this.router.navigate(['/home']);
-            this.authService.setUser({ email: loginDto.email });
-          },
-          error: (err) => {
-            console.error('Kayıt hatası:', err);
-          },
-        });
+
+        this.authService.saveToken(response.token);
+
+        if (this.authService.isAdmin()) {
+          this.router.navigate(['/admin']);
+        } else {
+          this.router.navigate(['/']);
+        }
+      },
+      error: (err) => {
+        console.error('Login hatası:', err);
+      }
+    });
   }
 }

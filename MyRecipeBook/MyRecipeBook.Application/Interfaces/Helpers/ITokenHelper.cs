@@ -1,6 +1,8 @@
-﻿namespace MyRecipeBook.Application.Interfaces.Helpers;
+﻿using MyRecipeBook.Domain.Entities;
+
+namespace MyRecipeBook.Application.Interfaces.Helpers;
 
 public interface ITokenHelper
 {
-    string GenerateToken(string email);
+    string GenerateToken(User user);
 }

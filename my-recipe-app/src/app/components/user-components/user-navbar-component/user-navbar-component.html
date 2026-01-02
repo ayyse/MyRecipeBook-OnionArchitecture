@@ -1,0 +1,17 @@
+<nav class="navbar">
+  <div class="logo" routerLink="/">Tarif Defterim</div>
+
+  <!-- GİRİŞ YAPILDIYSA -->
+  <div class="nav-links" *ngIf="isLoggedIn; else guest">
+    <span>Hoşgeldin, {{ email }}</span>
+    <a (click)="logout()" class="btn">Çıkış Yap</a>
+  </div>
+
+  <!-- GİRİŞ YAPILMADIYSA -->
+  <ng-template #guest>
+    <div class="nav-links">
+      <a routerLink="/login">Giriş Yap</a>
+      <a routerLink="/register" class="btn">Üye Ol</a>
+    </div>
+  </ng-template>
+</nav>

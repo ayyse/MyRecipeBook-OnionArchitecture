@@ -24,7 +24,7 @@ export interface IClient {
      * @param body (optional) 
      * @return OK
      */
-    login(body: LoginDto | undefined): Observable<void>;
+    login(body: LoginDto | undefined): Observable<AuthenticatedDto>;
     /**
      * @return OK
      */
@@ -144,7 +144,7 @@ export class Client implements IClient {
      * @param body (optional) 
      * @return OK
      */
-    login(body: LoginDto | undefined): Observable<void> {
+    login(body: LoginDto | undefined): Observable<AuthenticatedDto> {
         let url_ = this.baseUrl + "/api/Auth/login";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -156,6 +156,7 @@ export class Client implements IClient {
             responseType: "blob",
             headers: new HttpHeaders({
                 "Content-Type": "application/json",
+                "Accept": "application/json"
             })
         };
 
@@ -166,14 +167,14 @@ export class Client implements IClient {
                 try {
                     return this.processLogin(response_ as any);
                 } catch (e) {
-                    return _observableThrow(e) as any as Observable<void>;
+                    return _observableThrow(e) as any as Observable<AuthenticatedDto>;
                 }
             } else
-                return _observableThrow(response_) as any as Observable<void>;
+                return _observableThrow(response_) as any as Observable<AuthenticatedDto>;
         }));
     }
 
-    protected processLogin(response: HttpResponseBase): Observable<void> {
+    protected processLogin(response: HttpResponseBase): Observable<AuthenticatedDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -182,14 +183,16 @@ export class Client implements IClient {
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return _observableOf<void>(null as any);
+            let result200: any = null;
+            result200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver) as AuthenticatedDto;
+            return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<void>(null as any);
+        return _observableOf<AuthenticatedDto>(null as any);
     }
 
     /**
@@ -763,6 +766,11 @@ export class Client implements IClient {
     }
 }
 
+export interface AuthenticatedDto {
+    token?: string | undefined;
+    role?: string | undefined;
+}
+
 export interface CategoryDto {
     id?: string;
     creationDate?: string;
@@ -786,6 +794,7 @@ export interface CreateRecipeDto {
     preparationTime: number;
     cookingTime: number;
     numberOfServings: number;
+    categoryId?: string;
 }
 
 export interface LoginDto {

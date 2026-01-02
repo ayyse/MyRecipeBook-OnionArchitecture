@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MyRecipeBook.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f9076cfa50d9df510583ebe0742a545f628834aa")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1711694225c2244aa87760e901ee6c8fbceb160f")]
 [assembly: System.Reflection.AssemblyProductAttribute("MyRecipeBook.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MyRecipeBook.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

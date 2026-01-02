@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Router } from '@angular/router';
 
 export interface UserInfo {
   email?: string;
@@ -9,23 +9,47 @@ export interface UserInfo {
   providedIn: 'root',
 })
 export class AuthService {
-  private currentUserSubject = new BehaviorSubject<UserInfo | null>(null);
-  currentUser$ = this.currentUserSubject.asObservable();
+  private readonly TOKEN_KEY = 'token';
 
-  setUser(user: UserInfo) {
-    this.currentUserSubject.next(user);
-    localStorage.setItem('user', JSON.stringify(user));
+  constructor(private router: Router) {}
+
+  saveToken(token: string) {
+    localStorage.setItem(this.TOKEN_KEY, token);
   }
 
-  loadUserFromStorage() {
-    const user = localStorage.getItem('user');
-    if (user) {
-      this.currentUserSubject.next(JSON.parse(user));
-    }
+  getToken(): string | null {
+    return localStorage.getItem(this.TOKEN_KEY);
+  }
+
+  isLoggedIn(): boolean {
+    return !!this.getToken();
+  }
+
+  private getPayload(): any | null {
+    const token = this.getToken();
+    if (!token) return null;
+    return JSON.parse(atob(token.split('.')[1]));
+  }
+
+  getUserEmail(): string | null {
+    return this.getPayload()?.email ??
+      this.getPayload()?.[
+        'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'
+      ] ?? null;
+  }
+
+  getUserRole(): string | null {
+    return this.getPayload()?.[
+      'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
+    ] ?? null;
+  }
+
+  isAdmin(): boolean {
+    return this.getUserRole() === 'Admin';
   }
 
   logout() {
-    localStorage.removeItem('user');
-    this.currentUserSubject.next(null);
+    localStorage.removeItem(this.TOKEN_KEY);
+    this.router.navigate(['/login']);
   }
 }

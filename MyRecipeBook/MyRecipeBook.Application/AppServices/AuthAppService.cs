@@ -48,6 +48,6 @@ public class AuthAppService : IAuthAppService
         if (!_passwordHelper.Verify(input.Password, user.PasswordHash) || user.Email != input.Email)
             throw new Exception("Invalid email or password");
         
-        return _tokenHelper.GenerateToken(user.Email);
+        return _tokenHelper.GenerateToken(user);
     }
 }

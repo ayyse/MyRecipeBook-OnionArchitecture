@@ -2,21 +2,21 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CategoryDto, Client } from '../../../api/api';
 
 @Component({
-  selector: 'app-category-component',
+  selector: 'app-user-category-component',
   standalone: true,
   imports: [],
-  templateUrl: './category-component.html',
-  styleUrl: './category-component.css',
+  templateUrl: './user-category-component.html',
+  styleUrl: './user-category-component.css',
 })
-export class CategoryComponent implements OnInit {
+export class UserCategoryComponent implements OnInit {
   categories: CategoryDto[] = [];
 
-  constructor(private client: Client, private cdr: ChangeDetectorRef) {}
+  constructor(private client: Client, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     this.getParentCategories();
   }
-  
+
   getParentCategories(): void {
     this.client.parentCategories().subscribe({
       next: (response: CategoryDto[]) => {
@@ -30,5 +30,4 @@ export class CategoryComponent implements OnInit {
       }
     });
   }
-
 }

@@ -1,0 +1,63 @@
+.admin-navbar {
+  height: 64px;
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 24px;
+}
+
+.admin-navbar .left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 18px;
+  margin-right: 20px;
+}
+
+a {
+  color: rgba(255,255,255,0.85);
+  text-decoration: none;
+  font-size: 14px;
+  padding: 6px 10px;
+  border-radius: 6px;
+}
+
+a:hover {
+  background: rgba(255,255,255,0.15);
+}
+
+a.active {
+  background: rgba(255,255,255,0.25);
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.email {
+  font-size: 13px;
+  opacity: 0.9;
+}
+
+button {
+  background: #ff4d4f;
+  border: none;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #e63946;
+}
