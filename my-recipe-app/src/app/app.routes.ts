@@ -5,6 +5,8 @@ import { UserHomeComponent } from './components/user-components/user-home-compon
 import { userGuard } from './guards/user-guard';
 import { adminGuard } from './guards/admin-guard';
 import { AdminHomeComponent } from './components/admin-components/admin-home-component/admin-home-component';
+import { AdminCategoryComponent } from './components/admin-components/categories/admin-category-component/admin-category-component';
+import { AdminDashboardComponent } from './components/admin-components/admin-dashboard-component/admin-dashboard-component';
 
 export const routes: Routes = [
     {
@@ -23,6 +25,16 @@ export const routes: Routes = [
     {
         path: 'admin',
         component: AdminHomeComponent,
-        canActivate: [adminGuard]
+        canActivate: [adminGuard],
+        children: [
+            {
+                path: 'dashboard',
+                component: AdminDashboardComponent
+            },
+            {
+                path: 'categories',
+                component: AdminCategoryComponent
+            }
+        ]
     },
 ];

@@ -21,7 +21,6 @@ export class App {
 
   isAdmin(): boolean {
     const role = this.authService.getUserRole();
-    console.log("ksdjf", role)
     return role === 'Admin';
   }
 }
