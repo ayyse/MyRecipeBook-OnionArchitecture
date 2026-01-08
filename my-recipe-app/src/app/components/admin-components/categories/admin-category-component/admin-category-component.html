@@ -1,53 +1,28 @@
-<div class="category-card">
-  <table>
-    <thead>
+<div class="card" *ngIf="categories">
+  <p-treetable [value]="categories" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
+    <ng-template #header>
       <tr>
-        <th>Kategori</th>
-        <th>Açıklama</th>
-        <th class="actions">İşlemler</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th></th>
       </tr>
-    </thead>
-    <tbody>
-      <ng-container *ngFor="let category of categories">
-        <ng-template
-          [ngTemplateOutlet]="rowTemplate"
-          [ngTemplateOutletContext]="{ $implicit: category, level: 0 }">
-        </ng-template>
-      </ng-container>
-    </tbody>
-  </table>
+    </ng-template>
+    <ng-template #body let-rowNode let-rowData="rowData">
+      <tr [ttRow]="rowNode">
+        <td>
+          <div class="flex items-center gap-2">
+            <p-treetable-toggler [rowNode]="rowNode" />
+            <span>{{ rowData?.name }}</span>
+          </div>
+        </td>
+        <td>{{ rowData?.description }}</td>
+        <td>
+          <div class="action-buttons">
+            <p-button icon="pi pi-pencil" [rounded]="true" [text]="true" [raised]="true" severity="warn" />
+            <p-button icon="pi pi-trash" [rounded]="true" [text]="true" [raised]="true" severity="danger" />
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-treetable>
 </div>
-
-<ng-template #rowTemplate let-category let-level="level">
-  <tr class="row">
-    <td>
-      <div class="name-cell" [style.paddingLeft.px]="level * 28">
-        <span
-          *ngIf="category.children?.length"
-          class="toggle"
-          [class.open]="isExpanded(category.id)"
-          (click)="toggle(category.id)">
-          ▶
-        </span>
-        <span class="dot" *ngIf="!category.children?.length"></span>
-        {{ category.name }}
-      </div>
-    </td>
-
-    <td class="desc">{{ category.description }}</td>
-
-    <td class="actions">
-      <!-- <button class="btn ghost" (click)="edit(category)">Düzenle</button> -->
-      <button class="btn danger" (click)="delete(category)">Sil</button>
-    </td>
-  </tr>
-
-  <ng-container *ngIf="isExpanded(category.id)">
-    <ng-container *ngFor="let child of category.children">
-      <ng-template
-        [ngTemplateOutlet]="rowTemplate"
-        [ngTemplateOutletContext]="{ $implicit: child, level: level + 1 }">
-      </ng-template>
-    </ng-container>
-  </ng-container>
-</ng-template>
