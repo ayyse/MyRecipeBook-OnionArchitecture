@@ -1,6 +1,26 @@
-.action-buttons {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.75rem;
+/* Kartın genel yapısı (Varsa mevcut card class'ına ek olarak) */
+.card {
+  background: #ffffff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  margin-bottom: 1rem;
+}
+
+/* Başlık ve Butonu hizalayan kapsayıcı */
+.table-header {
+  display: flex;       /* Flexbox açar */
+  justify-content: space-between; /* Birini en sola, diğerini en sağa iter */
+  align-items: center; /* Dikeyde ortalar */
+  margin-bottom: 1.5rem; /* Tablo ile arasına boşluk koyar */
+  padding-bottom: 1rem; /* Altına hafif boşluk */
+  border-bottom: 1px solid #f3f4f6; /* İsteğe bağlı: Başlık ile tablo arasına ince çizgi */
+}
+
+/* Sol üstteki "Kategoriler" yazısı */
+.table-title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1f2937; /* Koyu gri modern renk */
 }

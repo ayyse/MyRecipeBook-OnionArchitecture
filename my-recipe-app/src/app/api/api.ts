@@ -768,7 +768,6 @@ export class Client implements IClient {
 
 export interface AuthenticatedDto {
     token?: string | undefined;
-    role?: string | undefined;
 }
 
 export interface CategoryDto {

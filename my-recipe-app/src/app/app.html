@@ -338,12 +338,10 @@
 <!-- * * * * * * * * * * End of Placeholder  * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 
-<app-admin-navbar-component
-  *ngIf="isAdmin()">
+<app-admin-navbar-component *ngIf="authService.isLoggedIn() && authService.isAdmin()">
 </app-admin-navbar-component>
 
-<app-user-navbar-component
-  *ngIf="!isAdmin()">
+<app-user-navbar-component *ngIf="!authService.isAdmin()">
 </app-user-navbar-component>
 
 <router-outlet />

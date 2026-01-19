@@ -1,16 +1,17 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CategoryDto, Client } from '../../../api/api';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-user-category-component',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './user-category-component.html',
   styleUrl: './user-category-component.css',
 })
 export class UserCategoryComponent implements OnInit {
   categories: CategoryDto[] = [];
-
+  
   constructor(private client: Client, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
@@ -22,8 +23,7 @@ export class UserCategoryComponent implements OnInit {
       next: (response: CategoryDto[]) => {
         this.categories = response;
         this.cdr.detectChanges();
-
-        console.log('Parent categories:', this.categories);
+        console.log(this.categories)
       },
       error: (err) => {
         console.error('Kategori çekilirken hata oluştu', err);
@@ -31,3 +31,4 @@ export class UserCategoryComponent implements OnInit {
     });
   }
 }
+

@@ -4,6 +4,9 @@ import { routes } from './app.routes';
 import { API_BASE_URL } from './api/api';
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeuix/themes/aura';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { authInterceptor } from './interceptors/auth.interceptor';
+import { DialogService } from 'primeng/dynamicdialog';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -14,6 +17,10 @@ export const appConfig: ApplicationConfig = {
       theme: {
         preset: Aura
       }
-    })
+    }),
+    provideHttpClient(
+      withInterceptors([authInterceptor])
+    ),
+    DialogService
   ]
 };

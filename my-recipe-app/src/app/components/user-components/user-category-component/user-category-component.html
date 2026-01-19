@@ -1,21 +1,22 @@
-<div class="category-bar">
-  @for (category of categories; track $index) {
-    <div class="category-wrapper">
+<div class="category-bar" *ngIf="categories.length > 0">
+  <div
+    class="category-wrapper"
+    *ngFor="let category of categories">
 
-      <div class="category-item">
-        {{ category.name }}
+    <div class="category-item">
+      {{ category.name }}
+    </div>
+
+    <div
+      class="child-dropdown"
+      *ngIf="category.subCategories?.length">
+
+      <div
+        class="child-item"
+        *ngFor="let child of category.subCategories">
+        {{ child.name }}
       </div>
 
-      @if (category.subCategories?.length) {
-        <div class="child-dropdown">
-          @for (child of category.subCategories; track $index) {
-            <div class="child-item">
-              {{ child.name }}
-            </div>
-          }
-        </div>
-      }
-
     </div>
-  }
+  </div>
 </div>

@@ -34,7 +34,6 @@ public class JwtTokenHelper : ITokenHelper
             issuer: _jwtSettings.Issuer,
             audience: _jwtSettings.Audience,
             claims: claims,
-            notBefore: DateTime.UtcNow,
             expires: DateTime.UtcNow.AddMinutes(_jwtSettings.ExpireMinutes),
             signingCredentials: credentials
         );

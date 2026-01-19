@@ -26,13 +26,13 @@ public class CategoryConfiguration : BaseEntityConfiguration<Category>
         builder.HasOne(x => x.ParentCategory)
             .WithMany(x => x.SubCategories)
             .HasForeignKey(x => x.ParentCategoryId)
-            .OnDelete(DeleteBehavior.Restrict); // Restrict: Alt kategoriler varken üst kategoriyi silemesin
+            .OnDelete(DeleteBehavior.Cascade); // Cascade: Eğer bir parent (ana) kayıt silinirse, ona bağlı child (alt) kayıtların otomatik olarak silinmesini sağlar
 
 
         // Relationships: Category -> Recipes (1 - many)
         builder.HasMany(x => x.Recipes)
             .WithOne(x => x.Category)
             .HasForeignKey(x => x.CategoryId)
-            .OnDelete(DeleteBehavior.Cascade); // Cascade: Eğer bir parent (ana) kayıt silinirse, ona bağlı child (alt) kayıtların otomatik olarak silinmesini sağlar
+            .OnDelete(DeleteBehavior.Cascade); 
     }
 }

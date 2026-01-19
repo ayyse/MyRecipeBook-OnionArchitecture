@@ -1,0 +1,64 @@
+<div class="form-container">
+  <form [formGroup]="form" (ngSubmit)="save()">
+    
+    <div class="field">
+      <label for="name" class="font-semibold block mb-2">
+        Kategori Adı <span class="text-red-500">*</span>
+      </label>
+      <input 
+        pInputText 
+        id="name" 
+        formControlName="name" 
+        placeholder="Örn: Tatlılar" 
+        class="w-full p-inputtext-lg" 
+        [ngClass]="{'ng-invalid ng-dirty': form.get('name')?.invalid && form.get('name')?.touched}"
+      />
+      <small *ngIf="form.get('name')?.invalid && form.get('name')?.touched" class="p-error block mt-1">
+        Kategori adı zorunludur.
+      </small>
+    </div>
+
+    <div class="field mt-4">
+      <label for="parent" class="font-semibold block mb-2">Üst Kategori</label>
+      <p-select 
+        [options]="parentCategories" 
+        formControlName="parentCategoryId"
+        optionLabel="name" 
+        optionValue="id"
+        placeholder="Ana Kategori Seçiniz" 
+        [showClear]="true" 
+        appendTo="body"
+        styleClass="w-full"
+        [style]="{'width':'100%'}"> </p-select>
+    </div>
+
+    <div class="field mt-4">
+      <label for="description" class="font-semibold block mb-2">Açıklama</label>
+      <textarea 
+        pInputTextarea 
+        id="description" 
+        formControlName="description" 
+        rows="4" 
+        class="w-full"
+        style="resize: none;" 
+        placeholder="Kategori hakkında kısa bir açıklama giriniz...">
+      </textarea>
+    </div>
+
+    <div class="dialog-footer mt-6 pt-4 border-t border-gray-200 flex justify-end gap-2">
+      <p-button 
+        label="Vazgeç" 
+        severity="secondary" 
+        [text]="true" 
+        (click)="close()">
+      </p-button>
+      <p-button 
+        label="Kaydet" 
+        type="submit" 
+        icon="pi pi-check" 
+        [disabled]="form.invalid">
+      </p-button>
+    </div>
+
+  </form>
+</div>

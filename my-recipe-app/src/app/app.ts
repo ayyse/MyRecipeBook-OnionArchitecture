@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { UserNavbarComponent } from './components/user-components/user-navbar-component/user-navbar-component';
 import { AdminNavbarComponent } from './components/admin-components/admin-navbar-component/admin-navbar-component';
 import { AuthService } from './services/auth-service';
@@ -16,11 +16,18 @@ export class App {
   protected readonly title = signal('my-recipe-app');
 
   constructor(
-    private authService: AuthService,
+    public authService: AuthService,
+    private router: Router
   ) { }
 
-  isAdmin(): boolean {
-    const role = this.authService.getUserRole();
-    return role === 'Admin';
+  ngOnInit() {
+    // Uygulama ilk açıldığında veya refresh olduğunda
+    if (this.authService.isLoggedIn() && this.authService.isAdmin() && this.router.url === '/') {
+      this.router.navigate(['/admin/dashboard']);
+    }
+  }
+
+  isAdmin() {
+    return this.authService.isAdmin();
   }
 }

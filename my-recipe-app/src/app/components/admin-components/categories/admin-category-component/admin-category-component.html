@@ -1,11 +1,20 @@
-<div class="card" *ngIf="categories">
+<div class="card">
+  <div class="table-header">
+    <h2 class="table-title">Kategoriler</h2>
+    
+    <p-button
+      label="Kategori Oluştur"
+      icon="pi pi-plus"
+      severity="success"
+      (click)="openCreateModal()"> </p-button>
+  </div>
+
   <p-treetable [value]="categories" [scrollable]="true" [tableStyle]="{'min-width':'50rem'}">
     <ng-template #header>
       <tr>
         <th>Name</th>
         <th>Description</th>
-        <th></th>
-      </tr>
+        <th style="width: 100px; text-align: right">Actions</th> </tr>
     </ng-template>
     <ng-template #body let-rowNode let-rowData="rowData">
       <tr [ttRow]="rowNode">
@@ -17,12 +26,15 @@
         </td>
         <td>{{ rowData?.description }}</td>
         <td>
-          <div class="action-buttons">
-            <p-button icon="pi pi-pencil" [rounded]="true" [text]="true" [raised]="true" severity="warn" />
-            <p-button icon="pi pi-trash" [rounded]="true" [text]="true" [raised]="true" severity="danger" />
+          <div class="action-buttons" style="display: flex; justify-content: flex-end; gap: 0.5rem;">
+            <p-button icon="pi pi-pencil" (click)="openEditModal(rowData)" [rounded]="true" [text]="true" [raised]="true" severity="warn" />
+            <p-button icon="pi pi-trash" (click)="delete(rowData)" [rounded]="true" [text]="true" [raised]="true" severity="danger" />
           </div>
         </td>
       </tr>
     </ng-template>
   </p-treetable>
 </div>
+
+<p-confirmdialog></p-confirmdialog>
+<p-toast></p-toast>

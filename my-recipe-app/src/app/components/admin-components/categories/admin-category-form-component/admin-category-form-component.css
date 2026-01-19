@@ -1,0 +1,43 @@
+/* Container ayarları */
+.form-container {
+  padding: 0.5rem;
+}
+
+/* Her bir form alanı için */
+.field {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Label (Etiket) ayarları */
+label {
+  color: #374151; /* Koyu gri */
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+}
+
+/* PrimeNG Inputlarını %100 Genişletme */
+:host ::ng-deep .p-inputtext {
+  width: 100%;
+}
+
+:host ::ng-deep .p-select {
+  width: 100%;
+}
+
+/* Hata mesajı */
+.p-error {
+  color: #ef4444;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+/* Footer çizgisi ve hizalama */
+.dialog-footer {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: flex-end; /* Butonları sağa yasla */
+  gap: 0.75rem;
+}
